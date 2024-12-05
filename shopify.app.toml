@@ -1,0 +1,32 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "f3601a70338435c3149e49bf99223ec2"
+application_url = "https://needle-lose-persistent-noise.trycloudflare.com"
+embedded = true
+name = "mitakshar-app"
+handle = "mitakshar-app-1"
+
+[webhooks]
+api_version = "2024-10"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "/webhooks/app/uninstalled"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
+
+[auth]
+redirect_urls = [
+  "https://needle-lose-persistent-noise.trycloudflare.com/auth/callback",
+  "https://needle-lose-persistent-noise.trycloudflare.com/auth/shopify/callback",
+  "https://needle-lose-persistent-noise.trycloudflare.com/api/auth/callback"
+]
+
+[pos]
+embedded = false
+
+[build]
+dev_store_url = "goldstar2001.myshopify.com"
+automatically_update_urls_on_dev = true
