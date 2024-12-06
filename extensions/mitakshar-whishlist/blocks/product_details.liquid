@@ -1,0 +1,116 @@
+{% assign product = block.settings.product %}
+
+<div class="product-container" data-product-id="{{ product.id }}">
+  <div class="product-image">
+    <img src="{{ product.featured_image | img_url: '300x300' }}" 
+
+         alt="{{ product.title }}" 
+         loading="lazy"
+         width="300"
+         height="300">
+  </div>
+
+  <div class="product-details">
+    <h3 class="product-title">{{ product.title }}</h3>
+    
+    <div class="product-pricing">
+      {% if product.compare_at_price > product.price %}
+        <span class="compare-at-price">{{ product.compare_at_price | money }}</span>
+      {% endif %}
+      <span class="current-price">{{ product.price | money }}</span>
+    </div>
+
+    <div class="product-meta">
+      <p class="product-vendor">Vendor: {{ product.vendor }}</p>
+      <p class="product-type">Type: {{ product.type }}</p>
+      
+      {% if product.available %}
+        <p class="product-status in-stock">In stock</p>
+        {% if product.variants.size > 1 %}
+          <p class="variant-count">{{ product.variants.size }} variants available</p>
+        {% endif %}
+      {% else %}
+        <p class="product-status out-of-stock">Out of stock</p>
+      {% endif %}
+    </div>
+
+    {% if product.description != blank %}
+      <div class="product-description">
+        {{ product.description | strip_html | truncatewords: 30 }}
+      </div>
+    {% endif %}
+
+    {% if product.tags.size > 0 %}
+      <div class="product-tags">
+        {% for tag in product.tags %}
+          <span class="tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="product-actions">
+    <button 
+      class="save-product-btn"
+      data-product-id="{{ product.id }}"
+      data-product-title="{{ product.title | escape }}"
+      data-product-price="{{ product.price }}"
+      data-product-image="{{ product.featured_image | img_url: '300x300' }}"
+      data-product-url="{{ product.url }}"
+      data-product-vendor="{{ product.vendor | escape }}"
+      data-shop-id="{{ shop.id }}"
+      onclick="saveProduct(this)">
+      Save Product
+    </button>
+  </div>
+</div>
+
+<script>
+  async function saveProduct(button) {
+    const productData = {
+      productId: button.dataset.productId,
+      title: button.dataset.productTitle,
+      price: button.dataset.productPrice,
+      imageUrl: button.dataset.productImage,
+      productUrl: button.dataset.productUrl,
+      vendor: button.dataset.productVendor,
+      shopId: button.dataset.shopId
+    };
+ console.log("productData------>",productData);
+    try {
+      const response = await fetch('/api/products/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(productData)
+      });
+
+      if (response.ok) {
+        button.textContent = 'Saved!';
+        button.disabled = true;
+      } else {
+        throw new Error('Failed to save product');
+      }
+    } catch (error) {
+      console.error('Error saving product:', error);
+      button.textContent = 'Error - Try Again';
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Product Details",
+  "target": "section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select Product",
+      "autofill": true
+    }
+  ],
+  "stylesheet": "product-details.css"
+}
+{% endschema %} 

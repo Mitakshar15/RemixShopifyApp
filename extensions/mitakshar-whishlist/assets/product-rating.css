@@ -1,0 +1,43 @@
+.product-rating-container {
+  padding: 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+.product-details {
+  margin-bottom: 1rem;
+}
+
+.product-details h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.product-price {
+  font-weight: bold;
+  color: #333;
+  margin: 0.5rem 0;
+}
+
+.product-info {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.product-vendor {
+  color: #666;
+  margin: 0.3rem 0;
+}
+
+.product-status {
+  margin: 0.3rem 0;
+}
+
+.product-status.in-stock {
+  color: #2ecc71;
+}
+
+.product-status.out-of-stock {
+  color: #e74c3c;
+} 

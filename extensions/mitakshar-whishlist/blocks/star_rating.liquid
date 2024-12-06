@@ -1,0 +1,41 @@
+{% assign product = block.settings.product %}
+{% assign avg_rating = product.metafields.demo.avg_rating.value | round %}
+
+<div class="product-rating-container">
+  <div class="product-details">
+    <h3>{{ product.title }}</h3>
+    <p class="product-price">{{ product.price | money }}</p>
+  </div>
+  
+  <span style="color:{{ block.settings.colour }}">
+    {% render 'stars', rating: avg_rating %}
+  </span>
+  
+  {% if avg_rating >= 4 %}
+    <br>
+    <img src="{{ "thumbs-up.png" | asset_img_url: '15x' }}" height="15" width="15" loading="lazy">
+    {{ 'ratings.home.recommendationText' | t }}
+  {% endif %}
+  
+  <div class="product-info">
+    <p class="product-vendor">{{ product.vendor }}</p>
+    {% if product.available %}
+      <p class="product-status in-stock">In stock</p>
+    {% else %}
+      <p class="product-status out-of-stock">Out of stock</p>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Star Rating",
+  "target": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "product", "autofill": true },
+    { "type": "color", "id": "colour", "label": "Star Colour", "default": "#ff0001" }
+  ],
+  "stylesheet": "product-rating.css"
+}
+{% endschema %}
+
