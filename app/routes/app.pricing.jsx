@@ -22,8 +22,15 @@ import prisma from "../db.server";
 
 export async function loader({request}) {
   let pricing = await prisma.setting.findFirst();
+  
+  if (!pricing) {
+    pricing = {
+      id: '1',
+      name: '',
+      description: ''
+    };
+  }
 
-  console.log("settings------>",pricing);
   return json(pricing);
 }
 
@@ -52,8 +59,12 @@ settings = Object.fromEntries(settings);
 
 const pricing = () => {
   const pricing = useLoaderData();
+  
+  const [formState, setFormState] = useState({
+    name: pricing?.name || '',
+    description: pricing?.description || ''
+  });
 
-  const [formState, setFormState] = useState(pricing);
   console.log(formState);
   return (
     <Page>
