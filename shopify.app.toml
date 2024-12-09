@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "f3601a70338435c3149e49bf99223ec2"
-application_url = "https://martin-appeared-respond-constraints.trycloudflare.com"
+application_url = "https://object-howto-following-fantasy.trycloudflare.com"
 embedded = true
 name = "mitakshar-app"
 handle = "mitakshar-app-1"
@@ -19,9 +19,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://martin-appeared-respond-constraints.trycloudflare.com/auth/callback",
-  "https://martin-appeared-respond-constraints.trycloudflare.com/auth/shopify/callback",
-  "https://martin-appeared-respond-constraints.trycloudflare.com/api/auth/callback"
+  "https://object-howto-following-fantasy.trycloudflare.com/auth/callback",
+  "https://object-howto-following-fantasy.trycloudflare.com/auth/shopify/callback",
+  "https://object-howto-following-fantasy.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

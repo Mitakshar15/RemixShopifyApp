@@ -38,17 +38,10 @@ model setting {
   
 }
 
-model savedProduct {
+model wishlist {
   id          Int      @id @default(autoincrement())
-  productId   String
-  shopId      String
-  title       String
-  price       Decimal
-  imageUrl    String?
-  productUrl  String
-  vendor      String
+  customerId  String?
+  productId   String?
+  shop        String?
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@unique([productId, shopId])
 }
