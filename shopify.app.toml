@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "f3601a70338435c3149e49bf99223ec2"
-application_url = "https://ratios-campus-delegation-excellent.trycloudflare.com"
+application_url = "https://intranet-writes-yamaha-council.trycloudflare.com"
 embedded = true
 name = "mitakshar-app"
 handle = "mitakshar-app-1"
@@ -19,9 +19,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://ratios-campus-delegation-excellent.trycloudflare.com/auth/callback",
-  "https://ratios-campus-delegation-excellent.trycloudflare.com/auth/shopify/callback",
-  "https://ratios-campus-delegation-excellent.trycloudflare.com/api/auth/callback"
+  "https://intranet-writes-yamaha-council.trycloudflare.com/auth/callback",
+  "https://intranet-writes-yamaha-council.trycloudflare.com/auth/shopify/callback",
+  "https://intranet-writes-yamaha-council.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

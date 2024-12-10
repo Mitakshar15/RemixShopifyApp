@@ -5,33 +5,64 @@
 <script>
     window.addEventListener('alpine:init', () => {
         Alpine.data('wishlist', () => ({
-
+            
+            init(){ 
+             fetch(this.appUrl + "api/wishlist"+"?customerId={{ customer.id }}&productId={{ product.id }}&shop={{ shop.permanent_domain }}")
+                  .then(response => response.json())
+                  .then(result => {
+                      if(result.data.length > 0){
+                        this.wishlisted = true;
+                      }
+                  })
+                  .catch(error => console.log('error', error));
+            },
+            
             wishlisted: false,
-            appUrl: "https://ratios-campus-delegation-excellent.trycloudflare.com/",
+            appUrl: "https://intranet-writes-yamaha-council.trycloudflare.com/",
             addToWishlist() {
                 {%  unless customer  %}
                   alert('Please login to add to wishlist');
                   return;
                 {% endunless %}
 
-                this.wishlisted = !this.wishlisted;
 
+                
                 var formdata = new FormData();
                 formdata.append("customerId", "{{ customer.id }}");
                 formdata.append("productId", "{{ product.id }}");
                 formdata.append("shop", "{{ shop.permanent_domain }}");
-                formdata.append("_action", this.wishlisted ? "CREATE" : "DELETE");
+                if(!this.wishlisted) {
+                formdata.append("_action","POST");
+              }
+              else  {
+                formdata.append("_action","DELETE");
+                }
 
                 var requestOptions = {
-                  method: 'POST',
+                  method: formdata.get("_action"),
                   body: formdata,
                   redirect: 'follow'
                 };
-
+                
                 fetch(this.appUrl + "api/wishlist", requestOptions)
-                .then((response) => response.text())
-  .then((result) => console.log(result))
+                .then((response) => response.json())
+  .then((result) =>{
+    console.log(result);
+
+    if(result.wishlist){
+      console.log("WISHLIST STATUS AT  L but one " ,this.wishlisted);
+      this.wishlisted = true;
+      console.log("WISHLIST STATUS AT LAST " ,this.wishlisted);
+    }
+    else{
+      console.log("WISHLIST STATUS AT  L but one " ,this.wishlisted);
+      this.wishlisted = false;
+      console.log("WISHLIST STATUS AT LAST " ,this.wishlisted);
+    }
+  })
   .catch((error) => console.error(error));
+
+
             }
         }))
     })
